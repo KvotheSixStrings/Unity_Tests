@@ -1,3 +1,4 @@
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace TMG.Zombies
     {
         public float3 FieldDimensions;
         public int NumberTombstonesToSpawn;
-        public GameObject TombstonePrefab;
+        public GameObject[] TombstonePrefabs;
         public uint RandomSeed;
     }
 
@@ -17,23 +18,26 @@ namespace TMG.Zombies
     {
         public override void Bake(GraveyardAuthor authoring)
         {
-            DependsOn(authoring.TombstonePrefab);
-            
             var graveyardEntity = GetEntity(TransformUsageFlags.Dynamic);
+
+            DynamicBuffer<EntityReference> tombstonePrefabs = AddBuffer<EntityReference>(graveyardEntity);
             
+            foreach (var go in authoring.TombstonePrefabs)
+            {
+                var objectAsEntity = GetEntity(go, TransformUsageFlags.Dynamic);
+                tombstonePrefabs.Add(objectAsEntity);
+            }
+
             AddComponent(graveyardEntity, new GraveyardPropertiesComponent
             {
                 FieldDimensions = authoring.FieldDimensions,
-                NumberTombstonesToSpawn = authoring.NumberTombstonesToSpawn,
-                TombstonePrefab = GetEntity(authoring.TombstonePrefab, TransformUsageFlags.Dynamic)
+                NumberTombstonesToSpawn = authoring.NumberTombstonesToSpawn
             });
             
             AddComponent(graveyardEntity, new GraveyardRandomComponent
             {
                 Value = Random.CreateFromIndex(authoring.RandomSeed)
             });
-
-            
         }
     }
 }

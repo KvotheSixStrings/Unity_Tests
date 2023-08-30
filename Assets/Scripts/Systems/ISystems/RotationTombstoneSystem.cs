@@ -11,7 +11,7 @@ namespace TMG.Zombies
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
-            
+            state.Enabled = false;
         }
 
         [BurstCompile]

@@ -1,8 +1,6 @@
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
-using Unity.Mathematics;
-using Unity.Scenes;
 
 namespace TMG.Zombies
 {
@@ -28,11 +26,12 @@ namespace TMG.Zombies
             
             var graveyardEntity = SystemAPI.GetSingletonEntity<GraveyardPropertiesComponent>();
             var graveyard = SystemAPI.GetAspect<GraveyardAspect>(graveyardEntity);
+            var prefabOptions = SystemAPI.GetBuffer<EntityReference>(graveyardEntity);
             var ecb = new EntityCommandBuffer(Allocator.Temp);
 
             for (var i = 0; i < graveyard.NumberTombstonesToSpawn; i++)
             {
-                var newTombstone = ecb.Instantiate(graveyard.TombstonePrefab);
+                var newTombstone = ecb.Instantiate(prefabOptions[graveyard.GetRandomInt(0, prefabOptions.Length)]);
                 var newTombstoneTransform = graveyard.GetRandomTombstoneTransform();
                 ecb.SetComponent(newTombstone, newTombstoneTransform);
                 

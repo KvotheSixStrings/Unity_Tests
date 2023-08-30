@@ -1,6 +1,9 @@
 using System.Collections;
+using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = Unity.Mathematics.Random;
 
 namespace TMG.Zombies
 {
@@ -9,15 +12,13 @@ namespace TMG.Zombies
         public float MovementSpeed;
         public float RotationSpeed;
         public float ScaleSpeed;
-        
-        public GraveyardAuthor Graveyard;
+        public int NumberToSpawn;
         
         private class PlayerAuthorBaker : Baker<PlayerAuthorAuthoring>
         {
             public override void Bake(PlayerAuthorAuthoring authoring)
             {
                 var playerEntity = GetEntity(TransformUsageFlags.Dynamic);
-                var graveyard = authoring.Graveyard;
                 
                 AddComponent<PlayerTagComponent>(playerEntity);
                 AddComponent(playerEntity, new PlayerDataComponent
@@ -29,10 +30,10 @@ namespace TMG.Zombies
 
                 AddComponent<PlayerSpawnTagInputComponent>(playerEntity);
                 SetComponentEnabled<PlayerSpawnTagInputComponent>(playerEntity, false);
+                
                 AddComponent(playerEntity,new PlayerSpawnInputComponent
                 {
-                    ObjectToSpawn = GetEntity(graveyard.TombstonePrefab, TransformUsageFlags.Dynamic), 
-                    NumberToSpawn = graveyard.NumberTombstonesToSpawn
+                    NumberToSpawn = authoring.NumberToSpawn
                 });
             }
         }

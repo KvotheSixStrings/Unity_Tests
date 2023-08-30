@@ -156,9 +156,12 @@ MonoBehaviour:
     x: 1000
     y: 1
     z: 1000
-  NumberTombstonesToSpawn: 1000
-  TombstonePrefab: {fileID: 6117832594158416268, guid: 8e26d6ac39c359b40adc935c7851ada7,
-    type: 3}
+  NumberTombstonesToSpawn: 3781634
+  TombstonePrefabs:
+  - {fileID: 6117832594158416268, guid: 8e26d6ac39c359b40adc935c7851ada7, type: 3}
+  - {fileID: 7958457752104354846, guid: e585d43219ad02240850c52e73240522, type: 3}
+  - {fileID: 8373539601737741330, guid: 7198d22ce47fe2c49b2ee1af9e94401a, type: 3}
+  - {fileID: 2891816665254227976, guid: 5065d4019320aaf48b93b316a329c694, type: 3}
   RandomSeed: 100
 --- !u!4 &252418583
 Transform:
@@ -207,7 +210,7 @@ MonoBehaviour:
   MovementSpeed: 10
   RotationSpeed: 100
   ScaleSpeed: 0
-  Graveyard: {fileID: 252418582}
+  NumberToSpawn: 1000
 --- !u!4 &1262132018
 Transform:
   m_ObjectHideFlags: 0

@@ -20,6 +20,7 @@ namespace TMG.Zombies
         {
             var graveyardEntity = SystemAPI.GetSingletonEntity<GraveyardPropertiesComponent>();
             var graveyard = SystemAPI.GetAspect<GraveyardAspect>(graveyardEntity);
+            var prefabOptions = SystemAPI.GetBuffer<EntityReference>(graveyardEntity);
             
             var ecb = new EntityCommandBuffer(Allocator.Temp);
             foreach (var (spawnInput, transform) in
@@ -27,7 +28,7 @@ namespace TMG.Zombies
             {
                 for (var i = 0; i < spawnInput.NumberToSpawn; i++)
                 {
-                    var newTombstone = ecb.Instantiate(spawnInput.ObjectToSpawn);
+                    var newTombstone = ecb.Instantiate(prefabOptions[graveyard.GetRandomInt(0, prefabOptions.Length)]);
                     var newTombstoneTransform = graveyard.GetRandomTombstoneTransform();
                     ecb.SetComponent(newTombstone, newTombstoneTransform);
 

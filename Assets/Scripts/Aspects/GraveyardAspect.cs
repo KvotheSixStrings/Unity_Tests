@@ -13,7 +13,7 @@ namespace TMG.Zombies
 
         private readonly RefRW<GraveyardPropertiesComponent> _graveyardProperties;
         private readonly RefRW<GraveyardRandomComponent> _graveyardRandom;
-
+        
         private int _tombstoneCount
         {
             get
@@ -26,7 +26,6 @@ namespace TMG.Zombies
         public int NextName => _tombstoneCount;
 
         public int NumberTombstonesToSpawn => _graveyardProperties.ValueRO.NumberTombstonesToSpawn;
-        public Entity TombstonePrefab => _graveyardProperties.ValueRO.TombstonePrefab;
 
         public LocalTransform GetRandomTombstoneTransform()
         {
@@ -50,11 +49,13 @@ namespace TMG.Zombies
 
         public float3 Position => Transform.Position;
         
+        public int GetRandomInt(int min, int max) => _graveyardRandom.ValueRW.Value.NextInt(min, max);
+
         private float3 GetRandomPosition()
         {
             return _graveyardRandom.ValueRW.Value.NextFloat3(MinCorner, MaxCorner);
         }
-        
+
         private float3 MinCorner => Transform.Position - HalfDimensions;
         private float3 MaxCorner => Transform.Position + HalfDimensions;
         private float3 HalfDimensions => new()
