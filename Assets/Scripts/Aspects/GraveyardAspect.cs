@@ -24,9 +24,26 @@ namespace TMG.Zombies
         }
         
         public int NextName => _tombstoneCount;
+        
+        public int NumberOfBatchesToSpawn => (int)math.ceil((float)_graveyardProperties.ValueRO.NumberTombstonesToSpawn / _graveyardProperties.ValueRO.TombstoneBatchSize);
 
-        public int NumberTombstonesToSpawn => _graveyardProperties.ValueRO.NumberTombstonesToSpawn;
+        public int TombstonesSpawnedThisFrame
+        {
+            get
+            {
+                int spawnAmount = _graveyardProperties.ValueRO.TombstoneBatchSize;
+                if (_graveyardProperties.ValueRO.NumberTombstonesToSpawn > _graveyardProperties.ValueRO.TombstoneBatchSize)
+                {
+                    _graveyardProperties.ValueRW.NumberTombstonesToSpawn -= spawnAmount;
+                    return spawnAmount;
+                }
 
+                spawnAmount = _graveyardProperties.ValueRO.NumberTombstonesToSpawn;
+                _graveyardProperties.ValueRW.NumberTombstonesToSpawn = 0;
+                return spawnAmount;
+            }
+        }
+        
         public LocalTransform GetRandomTombstoneTransform()
         {
             return new LocalTransform
@@ -39,21 +56,21 @@ namespace TMG.Zombies
 
         public float2 GetRandomOffset()
         {
-            return _graveyardRandom.ValueRW.Value.NextFloat2();
+            return _graveyardRandom.ValueRW.RotateByRandomSeed.NextFloat2();
         }
 
         public float GetRandomRotationSpeed()
         {
-            return _graveyardRandom.ValueRW.Value.NextFloat(0, 1f);
+            return _graveyardRandom.ValueRW.RotateByRandomSeed.NextFloat(0, 1f);
         }
 
         public float3 Position => Transform.Position;
         
-        public int GetRandomInt(int min, int max) => _graveyardRandom.ValueRW.Value.NextInt(min, max);
+        public int GetRandomInt(int min, int max) => _graveyardRandom.ValueRW.SpawningRandomSeed.NextInt(min, max);
 
         private float3 GetRandomPosition()
         {
-            return _graveyardRandom.ValueRW.Value.NextFloat3(MinCorner, MaxCorner);
+            return _graveyardRandom.ValueRW.PositionRandomSeed.NextFloat3(MinCorner, MaxCorner);
         }
 
         private float3 MinCorner => Transform.Position - HalfDimensions;
@@ -65,7 +82,7 @@ namespace TMG.Zombies
             z = _graveyardProperties.ValueRO.FieldDimensions.z * 0.5f
         };
 
-        private quaternion GetRandomRotation() => quaternion.RotateY(_graveyardRandom.ValueRW.Value.NextFloat(-0.25f, 0.25f));
-        private float GetRandomScale(float min) => _graveyardRandom.ValueRW.Value.NextFloat(min, 1f);
+        private quaternion GetRandomRotation() => quaternion.RotateY(_graveyardRandom.ValueRW.RotationRandomSeed.NextFloat(-0.25f, 0.25f));
+        private float GetRandomScale(float min) => _graveyardRandom.ValueRW.ScaleRandomSeed.NextFloat(min, 1f);
     }
 }

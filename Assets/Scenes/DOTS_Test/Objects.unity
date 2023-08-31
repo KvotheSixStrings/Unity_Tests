@@ -153,16 +153,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FieldDimensions:
-    x: 1000
+    x: 10000
     y: 1
-    z: 1000
-  NumberTombstonesToSpawn: 3781634
+    z: 10000
+  NumberTombstonesToSpawn: 2749000
+  BatchSize: 2749000
+  SpawningRandomSeed: 100
+  PositionRandomSeed: 200
+  RotationRandomSeed: 300
+  ScaleRandomSeed: 400
+  RotateByRandomSeed: 500
+  UseLod0: 1
+  UseLod1: 0
+  UseLod2: 0
+  UseLodGroup: 0
   TombstonePrefabs:
-  - {fileID: 6117832594158416268, guid: 8e26d6ac39c359b40adc935c7851ada7, type: 3}
-  - {fileID: 7958457752104354846, guid: e585d43219ad02240850c52e73240522, type: 3}
-  - {fileID: 8373539601737741330, guid: 7198d22ce47fe2c49b2ee1af9e94401a, type: 3}
-  - {fileID: 2891816665254227976, guid: 5065d4019320aaf48b93b316a329c694, type: 3}
-  RandomSeed: 100
+  - {fileID: 1804223645219744258, guid: 3b08da11263a2884698cb535ba9a2837, type: 3}
+  - {fileID: 7406610083943108800, guid: 17c6a348553689f478319c1e5904c0d4, type: 3}
+  - {fileID: 6837381672099619229, guid: a0d87c01e2e444447b5cd9036abb15ac, type: 3}
+  - {fileID: 6042715659682393101, guid: f1e4c88a931c8de4d935bab0c53d5ade, type: 3}
+  - {fileID: 2086823626552738168, guid: 8cf99f3917e19904daa6e4f825351b14, type: 3}
+  - {fileID: 7289135866781067978, guid: 22d0fa9eaec41574697b3d3dc8273f3b, type: 3}
+  - {fileID: 6294863069571734491, guid: a8ce5183b76eb794d9057686e208a0ab, type: 3}
+  - {fileID: 555637007275030920, guid: cf0a3bd20def3e647856ec2b67effcb6, type: 3}
+  - {fileID: 7381642321165094283, guid: 680a260ccb6276d4faf56bd91f8da8c8, type: 3}
+  - {fileID: 8606278213155636484, guid: 5818b56b1aa558741ab35b44ceb337f7, type: 3}
+  - {fileID: 3992129891700191459, guid: 2792f56f3cb512942b3f5dbd2511f4ce, type: 3}
+  - {fileID: 4337763992790104017, guid: 13dc1ac9a3d0bab4bb23cbb9ea943f21, type: 3}
+  - {fileID: 5306878293421986347, guid: 334fcdc889beac4469ea6e687e408ce2, type: 3}
+  - {fileID: 6113887462540095897, guid: dbc854af62c4c6746a517f4a14d4ea80, type: 3}
+  - {fileID: 124984448442928216, guid: 6fa80d71696c3784abf0b8c1b476448d, type: 3}
+  - {fileID: 3236221040405175033, guid: 2f52c184d421d1242a5fe38c6a24b557, type: 3}
 --- !u!4 &252418583
 Transform:
   m_ObjectHideFlags: 0
@@ -194,7 +215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1262132017
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,14 +22,20 @@ namespace TMG.Zombies
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            state.Enabled = false;
-            
             var graveyardEntity = SystemAPI.GetSingletonEntity<GraveyardPropertiesComponent>();
             var graveyard = SystemAPI.GetAspect<GraveyardAspect>(graveyardEntity);
+            
+            if (graveyard.NumberOfBatchesToSpawn == 0)
+            {
+                state.Enabled = false;
+                return;
+            }
+
             var prefabOptions = SystemAPI.GetBuffer<EntityReference>(graveyardEntity);
             var ecb = new EntityCommandBuffer(Allocator.Temp);
-
-            for (var i = 0; i < graveyard.NumberTombstonesToSpawn; i++)
+            int amountToSpawn = graveyard.TombstonesSpawnedThisFrame;
+            
+            for (var i = 0; i < amountToSpawn; i++)
             {
                 var newTombstone = ecb.Instantiate(prefabOptions[graveyard.GetRandomInt(0, prefabOptions.Length)]);
                 var newTombstoneTransform = graveyard.GetRandomTombstoneTransform();

@@ -9,6 +9,7 @@ namespace TMG.Zombies
     {
         public float3 FieldDimensions;
         public int NumberTombstonesToSpawn;
+        public int TombstoneBatchSize;
         public int TombstoneCount;
     }
 }
